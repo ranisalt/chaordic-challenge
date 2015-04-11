@@ -23,6 +23,11 @@ def index_json(filename):
     return index, reversed_index
 
 
+def write_json(filename, output):
+    with open(filename, 'w') as fp:
+        json.dump(output, fp, indent=2)
+
+
 def map_index(data):
     results = []
     for user in data[1]:
