@@ -27,6 +27,14 @@ def map_index(data):
     return (data[0], results)
 
 
+def reduce_index(data):
+    results = {}
+    for product in data[1]:
+        results[product] = results[product] + 1 if product in results else 1
+    total = float(len(data[1]))
+    return (data[0], {product: results[product] / total for product in results})
+
+
 if __name__ == '__main__':
     index, reversed_index = index_json('user-product_map.min.json')
 
