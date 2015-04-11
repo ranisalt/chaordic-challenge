@@ -2,6 +2,9 @@ import json
 from multiprocessing import Pool
 
 
+index = None
+
+
 def index_json(filename):
     index, reversed_index = {}, {}
 
