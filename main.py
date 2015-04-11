@@ -38,8 +38,11 @@ def index_json(filename):
 
 
 def write_json(filename, output):
+    # Perform sorting before dump
+    ordered = sorted(output, key=lambda obj: obj['reference_product_id'])
+
     with open(filename, 'w') as fp:
-        json.dump(output, fp, indent=2)
+        json.dump(ordered, fp, indent=2)
 
 
 def map_index(data):
