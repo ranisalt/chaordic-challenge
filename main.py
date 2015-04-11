@@ -19,5 +19,12 @@ def index_json(filename):
     return index, reversed_index
 
 
+def map_index(data):
+    results = []
+    for user in data[1]:
+        results.extend([v for v in index[user] if v != data[0]])
+    return (data[0], results)
+
+
 if __name__ == '__main__':
     index_json('user-product_map.json')
