@@ -91,6 +91,11 @@ def format_output(data):
             'product_id': product,
             'similarity': data[1][product]
         })
+
+    # Sort recommendations by product id. It wasn't really clear if it should be
+    # sorted by id or similarity level, in latter case you should just change
+    # the sorting key to be "obj['similarity']". Easy peasy!
+    object['recommendations'].sort(key=lambda obj: obj['product_id'])
     return object
 
 
