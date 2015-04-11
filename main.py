@@ -24,10 +24,12 @@ def index_json(filename):
         for line in fp:
             _ = json.loads(line)
 
+            # Create index of users->products
             if _['user_id'] not in index:
                 index[_['user_id']] = set()
             index[_['user_id']].add(_['product_id'])
 
+            # Create reversed index of products->users
             if _['product_id'] not in reversed_index:
                 reversed_index[_['product_id']] = set()
             reversed_index[_['product_id']].add(_['user_id'])
@@ -41,21 +43,42 @@ def write_json(filename, output):
 
 
 def map_index(data):
+    """
+    Map a product to every other product that is related to the same users
+    :param data: tuple (product, users)
+    :return: tuple of (products, other products from the same users)
+    """
     results = []
     for user in data[1]:
+        # This smarty stuff should filter out a product mapping to itself
         results.extend([v for v in index[user] if v != data[0]])
     return (data[0], results)
 
 
 def reduce_index(data):
+    """
+    Reduce a product related products to a ratio of similarity by repetition
+    :param data: tuple (product, other products)
+    :return: tuple of (product, dict of {other product, ratio})
+    """
     results = {}
     for product in data[1]:
+        # Just check that the index exists before incrementing
         results[product] = results[product] + 1 if product in results else 1
+
+    # Casted to float since Python does not cast integer division to float
     total = float(len(data[1]))
+
+    # I LOVE COMPREHENSIONS
     return (data[0], {product: results[product] / total for product in results})
 
 
 def format_output(data):
+    """
+    Format the result according to the requirements by recruitment
+    :param data: the stuff returned by the function above
+    :return: a new dict with formatted stuff
+    """
     object = {
         'reference_product_id': data[0],
         'recommendations': [],
