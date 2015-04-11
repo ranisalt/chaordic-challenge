@@ -2,7 +2,7 @@ import json
 
 
 def index_json(filename):
-    index, reverse_index = {}, {}
+    index, reversed_index = {}, {}
 
     with open(filename) as fp:
         for line in fp:
@@ -12,11 +12,11 @@ def index_json(filename):
                 index[_['user_id']] = set()
             index[_['user_id']].add(_['product_id'])
 
-            if _['product_id'] not in reverse_index:
-                reverse_index[_['product_id']] = set()
-            reverse_index[_['product_id']].add(_['user_id'])
+            if _['product_id'] not in reversed_index:
+                reversed_index[_['product_id']] = set()
+            reversed_index[_['product_id']].add(_['user_id'])
 
-    return index, reverse_index
+    return index, reversed_index
 
 
 if __name__ == '__main__':
