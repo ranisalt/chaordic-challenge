@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+""" Chaordic Challenge by Ranieri Althoff
+This is a very simplified and lightweight item-based collaborative filtering.
+What it does is to look on every user that is connected to a product (it is not
+specified which is this connection, but it may be "has bought" or "has rated")
+and look at other products that this user is also related to. By crossing this
+information and then calculating a ratio based on "total times users are related
+to this" / "total other items all users are also related" I get a similarity
+value, then all dumped to a file.
+"""
+
 import json
 from multiprocessing import Pool
 
