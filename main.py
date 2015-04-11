@@ -28,6 +28,6 @@ def map_index(data):
 
 
 if __name__ == '__main__':
-    index_json('user-product_map.json')
+    index, reversed_index = index_json('user-product_map.min.json')
 
     pool = Pool()
