@@ -39,3 +39,6 @@ if __name__ == '__main__':
     index, reversed_index = index_json('user-product_map.min.json')
 
     pool = Pool()
+
+    products_by_same_users = pool.map(map_index, reversed_index.items())
+    similarity_index = pool.map(reduce_index, products_by_same_users)
