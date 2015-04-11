@@ -11,7 +11,6 @@ value, then all dumped to a file.
 
 import argparse
 import json
-import sys
 from multiprocessing import Pool
 
 
