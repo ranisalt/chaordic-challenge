@@ -43,6 +43,19 @@ def reduce_index(data):
     return (data[0], {product: results[product] / total for product in results})
 
 
+def format_output(data):
+    object = {
+        'reference_product_id': data[0],
+        'recommendations': [],
+    }
+    for product in data[1]:
+        object['recommendations'].append({
+            'product_id': product,
+            'similarity': data[1][product]
+        })
+    return object
+
+
 if __name__ == '__main__':
     index, reversed_index = index_json('user-product_map.min.json')
 
