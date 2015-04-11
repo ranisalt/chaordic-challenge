@@ -1,4 +1,5 @@
 import json
+from multiprocessing import Pool
 
 
 def index_json(filename):
@@ -28,3 +29,5 @@ def map_index(data):
 
 if __name__ == '__main__':
     index_json('user-product_map.json')
+
+    pool = Pool()
