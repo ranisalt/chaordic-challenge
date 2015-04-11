@@ -9,7 +9,9 @@ to this" / "total other items all users are also related" I get a similarity
 value, then all dumped to a file.
 """
 
+import argparse
 import json
+import sys
 from multiprocessing import Pool
 
 
@@ -68,11 +70,16 @@ def format_output(data):
 
 
 if __name__ == '__main__':
-    index, reversed_index = index_json('user-product_map.min.json')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('input', help='input (user-product map) file')
+    parser.add_argument('output', help='output file')
+    args = parser.parse_args()
+
+    index, reversed_index = index_json(args.input)
 
     pool = Pool()
 
     products_by_same_users = pool.map(map_index, reversed_index.items())
     similarity_index = pool.map(reduce_index, products_by_same_users)
 
-    write_json('recommendation.json', pool.map(format_output, similarity_index))
+    write_json(args.output, pool.map(format_output, similarity_index))
