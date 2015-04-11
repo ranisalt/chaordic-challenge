@@ -63,3 +63,5 @@ if __name__ == '__main__':
 
     products_by_same_users = pool.map(map_index, reversed_index.items())
     similarity_index = pool.map(reduce_index, products_by_same_users)
+
+    write_json('recommendation.json', pool.map(format_output, similarity_index))
