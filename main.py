@@ -22,7 +22,10 @@ def index_json(filename):
 
     with open(filename) as fp:
         for line in fp:
-            _ = json.loads(line)
+            try:
+               _ = json.loads(line)
+            except ValueError:
+                continue
 
             # Create index of users->products
             if _['user_id'] not in index:
