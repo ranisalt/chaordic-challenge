@@ -11,6 +11,7 @@ value, then all dumped to a file.
 
 import argparse
 import json
+import math
 from multiprocessing import Pool
 
 
@@ -74,9 +75,10 @@ def reduce_index(data):
 
     # Casted to float since Python does not cast integer division to float
     total = float(len(data[1]))
+    formulae = lambda quantity: math.log((quantity / total) + 1, 2)
 
     # I LOVE COMPREHENSIONS
-    return (data[0], {product: results[product] / total for product in results})
+    return (data[0], {product: formulae(results[product]) for product in results})
 
 
 def format_output(data):
